@@ -16,14 +16,21 @@ export const GetRequest = ({ title, callApi }) => {
     const [response, setResponse] = useState({});
     const [loading, setLoading] = useState(false);
 
+    console.log('get request');
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const url = `${DEFAULT_URL}/${todoId}`;
 
         setLoading(true);
-        const apiResponse = await callApi({ url });
-        setResponse(apiResponse);
-        setLoading(false);
+        try {
+            const apiResponse = await callApi({ url });
+            setResponse(apiResponse);
+            setLoading(false);
+        } catch (error) {
+            console.error(error);
+            setLoading(false);
+        }
     };
 
     return (
